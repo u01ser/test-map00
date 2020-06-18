@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
 
 import { GoogleMaps, GoogleMap, GoogleMapsEvent, Marker,
          MarkerIcon, GoogleMapsAnimation, MyLocation, HtmlInfoWindow } from '@ionic-native/google-maps';
@@ -13,12 +14,16 @@ export class MapsPage implements OnInit {
   map: any;
   log: string;
 
-  constructor() { }
+  constructor(private platform: Platform) { }
 
   ngOnInit() {
     this.log = '';
 
-    this.initMap();
+    this.platform.ready().then(() => {
+      this.log += 'this.platform.ready()<br />';
+      this.initMap();
+    });
+    
   }
 
   private initMap(){
